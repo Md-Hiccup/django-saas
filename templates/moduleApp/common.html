@@ -1,0 +1,34 @@
+{% extends 'base.html' %} {% load crispy_forms_tags %} {% block content %}
+<div>
+    <form action="" method="post" class="form">
+        {% csrf_token %}
+        <br>
+        <div class="col-md-12">
+            <div class="col-md-2">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="moduleChkbox" value="{{ modName }}" {% if show %} checked {% endif %}>
+                </label>
+            </div>
+            </div>
+            <h2 style="margin-top: 5px">{{ modName }}</h2>
+        </div>
+
+        <div class="col-md-12">
+            {% for i in data %}
+            <div class="col-md-2">
+                <div class="checkbox" id="{{mod_name }}_{{i.submodule_name}}">
+                    <p style="text-align: center">{{ i.submodule_name }}</p>
+                    <label>
+                        <input type="checkbox" name="optionsCheckboxes" value="{{i.submodule_name}}" {% if i.show %} checked {% endif %}>
+                        <!-- <span class="checkbox-material"></span> -->
+                    </label>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% endblock %}
+

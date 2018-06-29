@@ -1,0 +1,53 @@
+<div class="sidebar" data-color="green" data-image="">
+    <!--
+Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
+
+Tip 2: you can also add an image using data-image tag
+-->
+    <div class="logo">
+        <a href="{% url 'home' %}" class="simple-text">
+            Module Project
+        </a>
+    </div>
+    <div class="sidebar-wrapper">
+        <ul class="nav">
+            <!-- <li class="active">
+                <a href="">
+                    <i class="material-icons">dashboard</i>
+                    <p>Dashboard</p>
+                </a>
+            </li> -->
+            {% for i in menu %}
+            <li>
+                {% if i.show %}
+                    <a class="accordion-toggle collapsed toggle-switch" data-toggle="collapse" href="#submenu-{{ i.module_name }}-{{ i.submodule_name }}">
+                        <span class="sidebar-title">{{ i.module_name }}</span>
+                        <b class="caret"></b>
+                    </a>
+                {% endif %}
+                <ul id="submenu-{{ i.module_name }}-{{ i.submodule_name }}" class="panel-collapse collapse panel-switch" role="menu">
+                {% for s in sub_menu %}
+                {% if s.show %}
+                    {% if s.module_name_id == i.id %}
+                        <li><a href="{% url 'random_page' %}">{{ s.submodule_name }}</a></li>
+                    {% endif %}
+                {% endif %}
+                {% endfor %}
+                </ul>
+            </li>
+            {% endfor %}
+            <br><br>
+            <li>
+                <a class="accordion-toggle collapsed toggle-switch" data-toggle="collapse" href="#submenu-{{ i.module_name }}">
+                    <span class="sidebar-title">Privilege Management</span>
+                    <b class="caret"></b>
+                </a>
+                <ul id="submenu-{{ i.module_name }}" class="panel-collapse collapse panel-switch" role="menu">
+                    {% for m in menu %}
+                        <li><a href="{% url 'common_page' pk=m.pk %}">{{ m.module_name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
